@@ -1,47 +1,47 @@
 package bankservice;
-
+////ìˆ˜ì •
 public class BankService1 {
     private BankAccount1 account;
 
-    // °èÁÂ °³¼³
+    // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
     public void openAccount(String customerName, String password, double initialDeposit, boolean isStudent) {
         if (isStudent) {
-             initialDeposit += 10000; // ÇÐ»ýÀÎ °æ¿ì, 10,000¿ø Ãß°¡
+             initialDeposit += 10000; // ï¿½Ð»ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½, 10,000ï¿½ï¿½ ï¿½ß°ï¿½
          }
          account = new BankAccount1(customerName, password, initialDeposit);
-         System.out.println("°èÁÂ°¡ ¼º°øÀûÀ¸·Î °³¼³µÇ¾ú½À´Ï´Ù. °í°´¸í: " + customerName + ", ÃÊ±â ÀÔ±Ý¾×: " + initialDeposit);
+         System.out.println("ï¿½ï¿½ï¿½Â°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ç¾ï¿½ï¿½ï¿½ï¿½Ï´ï¿½. ï¿½ï¿½ï¿½ï¿½: " + customerName + ", ï¿½Ê±ï¿½ ï¿½Ô±Ý¾ï¿½: " + initialDeposit);
      }
 
 
-    // °èÁÂ ÇØÁö
+    // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
     public void closeAccount() {
         if (account != null) {
             account = null;
-            System.out.println("°èÁÂ°¡ ¼º°øÀûÀ¸·Î ÇØÁöµÇ¾ú½À´Ï´Ù.");
+            System.out.println("ï¿½ï¿½ï¿½Â°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ç¾ï¿½ï¿½ï¿½ï¿½Ï´ï¿½.");
         } else {
-            System.out.println("ÇØÁöÇÒ °èÁÂ°¡ ¾ø½À´Ï´Ù.");
+            System.out.println("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Â°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½.");
         }
     }
 
-    // °èÁÂ Á¤º¸ Á¶È¸
+    // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È¸
     public void showAccountInfo() {
         if (account != null) {
-            System.out.println("°í°´¸í: " + account.getCustomerName() + ", ÀÜ¾×: " + account.getBalance());
+            System.out.println("ï¿½ï¿½ï¿½ï¿½: " + account.getCustomerName() + ", ï¿½Ü¾ï¿½: " + account.getBalance());
         } else {
-            System.out.println("°³¼³µÈ °èÁÂ°¡ ¾ø½À´Ï´Ù.");
+            System.out.println("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Â°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½.");
         }
     }
     
     public void closeAccount(String customerName, String password) {
         if (account != null && account.getCustomerName().equals(customerName) && account.checkPassword(password)) {
             account = null;
-            System.out.println("°èÁÂ°¡ ¼º°øÀûÀ¸·Î ÇØÁöµÇ¾ú½À´Ï´Ù.");
+            System.out.println("ï¿½ï¿½ï¿½Â°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ç¾ï¿½ï¿½ï¿½ï¿½Ï´ï¿½.");
         } else {
-            System.out.println("°èÁÂ ÇØÁö¸¦ ½ÇÆÐÇß½À´Ï´Ù Á¤º¸¸¦ È®ÀÎÇØÁÖ¼¼¿ä.");
+            System.out.println("ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ß½ï¿½ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ È®ï¿½ï¿½ï¿½ï¿½ï¿½Ö¼ï¿½ï¿½ï¿½.");
         }
     }
     
- // °èÁÂ Á¸Àç ¿©ºÎ È®ÀÎ ¸Þ¼­µå
+ // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ È®ï¿½ï¿½ ï¿½Þ¼ï¿½ï¿½ï¿½
     public boolean isAccountExist(String customerName, String password) {
         if (account != null && account.getCustomerName().equals(customerName) && account.getPassword().equals(password)) {
             return true;
