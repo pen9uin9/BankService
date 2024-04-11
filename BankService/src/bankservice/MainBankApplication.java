@@ -44,7 +44,7 @@ public class MainBankApplication {
         }
     }
     
-    private static void checkType() {
+    private static void checkType() { // 개인 법인 확인
     	System.out.println("1. 개인 2. 법인");
     	System.out.print("선택: ");
     	
@@ -57,7 +57,8 @@ public class MainBankApplication {
     	        openCorporateAccount();
     	    }
     	}
-    private static void openIndividualAccount() {
+    
+    private static void openIndividualAccount() { // 개인 계좌 개설
         System.out.println("개인 고객 중 학생이십니까?");
         System.out.println("1. 학생");
         System.out.println("2. 학생이 아님");
@@ -102,21 +103,50 @@ public class MainBankApplication {
 
         bankService.openAccount(name, password, initialDeposit);
         System.out.println( name + "님의 입금액: " + initialDeposit + "원, 잔액은 " + initialDeposit + "원입니다.");
-    }
+    }// 이파트 initialDeposit 입금액은 수정해야한다.
     
-    
-    private static void openCorporateAccount() {
+    private static void openCorporateAccount() {// 법인 계좌 개설 // 대표자, 담당직원 이름 추가
         System.out.print("법인 이름을 입력하세요: ");
         String name = scanner.nextLine();
+        
         System.out.print("비밀번호를 입력하세요: ");
-        String password = scanner.nextLine();
-        System.out.print("입금액을 입력하세요 (만원 단위): ");
-        double initialDeposit = scanner.nextDouble();
+        String password;
+		while (true) {
+            System.out.print("비밀번호를 입력하세요 (4자리 숫자): ");
+            password = scanner.nextLine();
+            if (password.matches("\\d{4}")) {
+                break;  // 유효한 입력 시 루프 탈출
+            } else {
+                System.out.println("비밀번호는 숫자 4자리여야 합니다. 다시 입력해주세요.");
+            }
+        }
+        
+		double initialDeposit = 0;
+        System.out.print("입금액을 입력하세요 (만원 단위, 최소 10,000원): ");
+        while (true) {
+            initialDeposit = scanner.nextDouble();
+            scanner.nextLine();  // 개행 문자 제거
+            if (initialDeposit < 10000) {
+                System.out.println("최소 입금액은 10,000원 이상이어야 합니다. 다시 입력해주세요.");
+            } else {
+                break;  // 유효한 입금액 시 루프 탈출
+            }
+        }
+        System.out.println("신규 가입 감사합니다. 법인신규가입 시 100,000원이 추가됩니다.");
+        
+        System.out.print("대표자 이름을 입력하세요: ");
+        String ceo = scanner.nextLine();
+        
+        System.out.print("담장자 이름을 입력하세요: ");
+        String manager = scanner.nextLine();
         scanner.nextLine();  // 개행 문자 제거
-
-        bankService.openAccount(name, password, initialDeposit);
+        
+        initialDeposit += 100000;
+        bankService.openAccount(name, password, initialDeposit, ceo, manager);
+        System.out.println( "법인명 :" + name + "대표자 : " + ceo + "직원 : " + manager + "님의 입금액 : " + (initialDeposit-100000) + "원, 잔액은 " + initialDeposit + "원입니다.");
     }
-    private static void depositMoney() {
+    
+    private static void depositMoney() { // 입금
         System.out.print("이름을 입력하세요: ");
         String name = scanner.nextLine();
         System.out.print("비밀번호를 입력하세요: ");
@@ -128,7 +158,7 @@ public class MainBankApplication {
         bankService.deposit(name, password, amount);
     }
 
-    private static void withdrawMoney() {
+    private static void withdrawMoney() { // 출금
         System.out.print("이름을 입력하세요: ");
         String name = scanner.nextLine();
         System.out.print("비밀번호를 입력하세요: ");
@@ -140,7 +170,7 @@ public class MainBankApplication {
         bankService.withdraw(name, password, amount);
     }
 
-    private static void checkBalance() {
+    private static void checkBalance() { // 확인
         System.out.print("이름을 입력하세요: ");
         String name = scanner.nextLine();
         System.out.print("비밀번호를 입력하세요: ");
@@ -149,7 +179,7 @@ public class MainBankApplication {
         bankService.checkBalance(name, password);
     }
 
-    private static void closeAccount() {
+    private static void closeAccount() { // 해지
         System.out.print("이름을 입력하세요: ");
         String name = scanner.nextLine();
         System.out.print("비밀번호를 입력하세요: ");
