@@ -142,7 +142,7 @@ public class MainBankApplication {
         
         System.out.print("담당자 이름을 입력하세요: ");
         String manager = scanner.nextLine();
-        scanner.nextLine();  // 개행 문자 제거
+        //scanner.nextLine();  // 개행 문자 제거
         
         initialDeposit += 100000;
         bankService.openAccount(name, password, initialDeposit, ceo, manager);
