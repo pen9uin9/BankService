@@ -4,6 +4,8 @@ public class BankAccount {
     protected String customerName;
     protected String password;
     protected double balance;
+    protected String job;//학생 선택인 경우 학생, 학생 아닌 경우 직장인, 법인은 사업가
+    protected double accountnumber;// 계좌번호
 
     public BankAccount(String customerName, String password, double initialDeposit) {//생성자
         this.customerName = customerName;
@@ -25,7 +27,7 @@ public class BankAccount {
             return false;
         }
         balance += amount;
-        System.out.println("입금 완료. 현재 잔액: " + balance);
+        System.out.println("입금 완료. 현재 잔액: " + Math.round(balance));
         return true;
     }
 
@@ -39,7 +41,7 @@ public class BankAccount {
             return false;
         }
         balance -= amount;
-        System.out.println("출금 완료. 현재 잔액: " + balance);
+        System.out.println("출금 완료. 현재 잔액: " + Math.round(balance));
         return true;
     }
 
@@ -57,7 +59,7 @@ public class BankAccount {
 
 }
 
-class CorporateAccount extends BankAccount{
+class CorporateAccount extends BankAccount{// BankAccount를 상속하는 CorporateAccount // ceo manager를 입력해도 접근할 수 있을것인지
 	private String ceo;
 	private String manager;
 	
@@ -88,7 +90,7 @@ class CorporateAccount extends BankAccount{
             return false;
         }
         balance += amount;
-        System.out.println("입금 완료. 현재 잔액: " + balance);
+        System.out.println("입금 완료. 현재 잔액: " + Math.round(balance));
         return true;
     }
 
@@ -103,7 +105,7 @@ class CorporateAccount extends BankAccount{
             return false;
         }
         balance -= amount;
-        System.out.println("출금 완료. 현재 잔액: " + balance);
+        System.out.println("출금 완료. 현재 잔액: " + Math.round(balance));
         return true;
     }
 
