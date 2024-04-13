@@ -99,10 +99,13 @@ public class MainBankApplication {
         if (studentChoice == 1) {
             initialDeposit += 10000;  // 학생일 경우 추가 보너스
             System.out.println("학생신규가입 시 10,000원이 추가됩니다.");
+            bankService.openAccount(name, password, initialDeposit);
+            System.out.println( name + "님의 입금액: " + (initialDeposit-10000) + "원, 잔액은 " + initialDeposit + "원입니다.");
         }
-
-        bankService.openAccount(name, password, initialDeposit);
-        System.out.println( name + "님의 입금액: " + initialDeposit + "원, 잔액은 " + initialDeposit + "원입니다.");
+        else {
+        	bankService.openAccount(name, password, initialDeposit);
+            System.out.println( name + "님의 입금액: " + initialDeposit + "원, 잔액은 " + initialDeposit + "원입니다.");
+        }
     }// 이파트 initialDeposit 입금액은 수정해야한다.
     
     private static void openCorporateAccount() {// 법인 계좌 개설 // 대표자, 담당직원 이름 추가
@@ -137,7 +140,7 @@ public class MainBankApplication {
         System.out.print("대표자 이름을 입력하세요: ");
         String ceo = scanner.nextLine();
         
-        System.out.print("담장자 이름을 입력하세요: ");
+        System.out.print("담당자 이름을 입력하세요: ");
         String manager = scanner.nextLine();
         scanner.nextLine();  // 개행 문자 제거
         
