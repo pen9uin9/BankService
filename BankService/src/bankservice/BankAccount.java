@@ -1,6 +1,6 @@
 package bankservice;
 
-public class BankAccount {
+public class BankAccount { // 상속으로 법인 계좌 만들기
     private String customerName;
     private String password;
     private double balance;

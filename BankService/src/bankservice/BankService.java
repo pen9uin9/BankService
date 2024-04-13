@@ -10,7 +10,21 @@ public class BankService {
         this.accounts = new HashMap<>();
     }
 
-    public void openAccount(String customerName, String password, double initialDeposit) {
+    public void openAccount(String customerName, String password, double initialDeposit) {// 개인 계좌 개설 매소드
+        if (accounts.containsKey(customerName)) {
+            System.out.println("이미 개설된 계좌가 있습니다.");
+            return;
+        }
+        if (initialDeposit < 10000) {
+            System.out.println("최소 입금액은 만원(10000원) 이상이어야 합니다.");
+            return;
+        }
+        BankAccount account = new BankAccount(customerName, password, initialDeposit);
+        accounts.put(customerName, account);
+        System.out.println("계좌가 개설되었습니다.");
+    }
+    
+    public void openAccount(String customerName, String password, double initialDeposit, String ceo, String manager) { // 법인 계좌 개설 메소드
         if (accounts.containsKey(customerName)) {
             System.out.println("이미 개설된 계좌가 있습니다.");
             return;
@@ -81,6 +95,7 @@ public class BankService {
         accounts.remove(customerName);
         account.closeAccount();
     }
+    
     private BankAccount findAccount(String customerName, String password) {
     	 BankAccount account = accounts.get(customerName);
          if (account != null && account.checkPassword(password)) {
