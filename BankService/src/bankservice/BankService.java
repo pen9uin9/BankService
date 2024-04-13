@@ -10,7 +10,21 @@ public class BankService {
         this.accounts = new HashMap<>();
     }
 
-    public void openAccount(String customerName, String password, double initialDeposit) {
+    public void openAccount(String customerName, String password, double initialDeposit) {// 개인 계좌 개설 매소드
+        if (accounts.containsKey(customerName)) {
+            System.out.println("이미 개설된 계좌가 있습니다.");
+            return;
+        }
+        if (initialDeposit < 10000) {
+            System.out.println("최소 입금액은 만원(10000원) 이상이어야 합니다.");
+            return;
+        }
+        BankAccount account = new BankAccount(customerName, password, initialDeposit);
+        accounts.put(customerName, account);
+        System.out.println("계좌가 개설되었습니다.");
+    }
+    
+    public void openAccount(String customerName, String password, double initialDeposit, String ceo, String manager) { // 법인 계좌 개설 메소드
         if (accounts.containsKey(customerName)) {
             System.out.println("이미 개설된 계좌가 있습니다.");
             return;
@@ -33,7 +47,7 @@ public class BankService {
         BankAccount account = findAccount(customerName, password);
         if (account != null) {
             account.deposit(amount);
-            System.out.println(amount + "원이 입금되었습니다. 잔액은 " + account.getBalance() + "원입니다.");
+            System.out.println(Math.round(amount) + "원이 입금되었습니다. 잔액은 " + Math.round(account.getBalance()) + "원입니다.");
         } else {
             System.out.println("계좌 정보가 일치하지 않거나 계좌를 찾을 수 없습니다.");
         }
@@ -47,7 +61,7 @@ public class BankService {
         
         BankAccount account = findAccount(customerName, password);
         if (account != null && account.withdraw(amount)) {
-            System.out.println(amount + "원이 인출되었습니다. 잔액은 " + account.getBalance() + "원입니다.");
+            System.out.println(Math.round(amount) + "원이 인출되었습니다. 잔액은 " + Math.round(account.getBalance()) + "원입니다.");
         } else if (account == null) {
             System.out.println("계좌 정보가 일치하지 않거나 계좌를 찾을 수 없습니다.");
         } else {
@@ -65,7 +79,7 @@ public class BankService {
             System.out.println("잘못된 비밀번호입니다.");
             return;
         }
-        System.out.println("현재 잔액: " + account.getBalance());
+        System.out.println("현재 잔액: " + Math.round(account.getBalance()));
     }
 
     public void closeAccount(String customerName, String password) {
@@ -81,6 +95,7 @@ public class BankService {
         accounts.remove(customerName);
         account.closeAccount();
     }
+    
     private BankAccount findAccount(String customerName, String password) {
     	 BankAccount account = accounts.get(customerName);
          if (account != null && account.checkPassword(password)) {
@@ -88,5 +103,4 @@ public class BankService {
          }
          return null;
      }
-
 }
