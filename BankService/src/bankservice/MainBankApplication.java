@@ -100,13 +100,13 @@ public class MainBankApplication {
             initialDeposit += 10000;  // 학생일 경우 추가 보너스
             System.out.println("학생신규가입 시 10,000원이 추가됩니다.");
             bankService.openAccount(name, password, initialDeposit);
-            System.out.println( name + "님의 입금액: " + (initialDeposit-10000) + "원, 잔액은 " + initialDeposit + "원입니다.");
+            System.out.println( name + "님의 입금액: " + Math.round(initialDeposit-10000) + "원, 잔액은 " + Math.round(initialDeposit) + "원입니다.");
         }
         else {
         	bankService.openAccount(name, password, initialDeposit);
-            System.out.println( name + "님의 입금액: " + initialDeposit + "원, 잔액은 " + initialDeposit + "원입니다.");
+            System.out.println( name + "님의 입금액: " + Math.round(initialDeposit) + "원, 잔액은 " + Math.round(initialDeposit) + "원입니다.");
         }
-    }// 이파트 initialDeposit 입금액은 수정해야한다.
+    }// 이파트 동일한 이름을 입력했을 때 그대로 진행하는 것 같다. 오류 수정 필요
     
     private static void openCorporateAccount() {// 법인 계좌 개설 // 대표자, 담당직원 이름 추가
         System.out.print("법인 이름을 입력하세요: ");
@@ -146,7 +146,7 @@ public class MainBankApplication {
         
         initialDeposit += 100000;
         bankService.openAccount(name, password, initialDeposit, ceo, manager);
-        System.out.println( "법인명 :" + name + "대표자 : " + ceo + "직원 : " + manager + "님의 입금액 : " + (initialDeposit-100000) + "원, 잔액은 " + initialDeposit + "원입니다.");
+        System.out.println( "법인명 :" + name + "대표자 : " + ceo + "직원 : " + manager + "님의 입금액 : " + Math.round(initialDeposit-100000) + "원, 잔액은 " + Math.round(initialDeposit) + "원입니다.");
     }
     
     private static void depositMoney() { // 입금
