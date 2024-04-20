@@ -1,20 +1,23 @@
 package bankservice;
-
 import java.util.Scanner;
+import java.security.SecureRandom; // 난수생성을 위한 import
 
 public class MainBankApplication {
     private static Scanner scanner = new Scanner(System.in);
     private static BankService bankService = new BankService();
+    
+    private static SecureRandom random = new SecureRandom(); // 난수객체 생성
 
     public static void main(String[] args) {
         while (true) {
-        	System.out.println("『지누 은행에 오신걸 환영합니다. 원하시는 서비스를 입력해 주세요.』");
+            System.out.println("『지누 은행에 오신걸 환영합니다. 원하시는 서비스를 입력해 주세요.』");
             System.out.println("1. 계좌 개설");
             System.out.println("2. 입금");
             System.out.println("3. 출금");
             System.out.println("4. 잔액 조회");
             System.out.println("5. 계좌 해지");
-            System.out.println("6. 종료");
+            System.out.println("6. 개인고객 간 이체");   // 이체 기능을 추가
+            System.out.println("7. 종료");   // 종료 번호를 7번으로 이동
             System.out.print("원하시는 작업을 선택하세요: ");
             int choice = scanner.nextInt();
             scanner.nextLine();  // 개행 문자 제거
@@ -36,6 +39,9 @@ public class MainBankApplication {
                     closeAccount();
                     break;
                 case 6:
+                    transferMoney();  // 이체 기능 호출
+                    break;
+                case 7:
                     System.out.println("프로그램을 종료합니다.");
                     System.exit(0);
                 default:
@@ -43,6 +49,7 @@ public class MainBankApplication {
             }
         }
     }
+
     
     private static void checkType() { // 개인 법인 확인
     	System.out.println("1. 개인 2. 법인");
@@ -94,6 +101,10 @@ public class MainBankApplication {
             } else {
                 break;  // 유효한 입금액 시 루프 탈출
             }
+            
+         // 13자리 랜덤 계좌번호 생성
+            String accountNumber = generateAccountNumber();
+            System.out.println("귀하의 계좌번호는 " + accountNumber + " 입니다.");
         }
 
         if (studentChoice == 1) {
@@ -107,6 +118,15 @@ public class MainBankApplication {
             System.out.println( name + "님의 입금액: " + Math.round(initialDeposit) + "원, 잔액은 " + Math.round(initialDeposit) + "원입니다.");
         }
     }// 이파트 동일한 이름을 입력했을 때 그대로 진행하는 것 같다. 오류 수정 필요
+    
+    //개인계좌번호 생성 메소드
+    private static String generateAccountNumber() {
+        String accountNumber = "";
+        for (int i = 0; i < 13; i++) {
+            accountNumber += random.nextInt(10);  // 0부터 9 사이의 숫자를 추가
+        }
+        return accountNumber;
+    }
     
     private static void openCorporateAccount() {// 법인 계좌 개설 // 대표자, 담당직원 이름 추가
         System.out.print("법인 이름을 입력하세요: ");
@@ -190,4 +210,19 @@ public class MainBankApplication {
 
         bankService.closeAccount(name, password);
     }
+    
+    private static void transferMoney() { // 이체
+        System.out.print("보내는 고객의 이름을 입력하세요: ");
+        String senderName = scanner.nextLine();
+        System.out.print("보내는 고객의 비밀번호를 입력하세요: ");
+        String senderPassword = scanner.nextLine();
+        System.out.print("받는 고객의 계좌번호 또는 이름을 입력하세요: ");
+        String receiverIdentifier = scanner.nextLine();
+        System.out.print("이체할 금액을 입력하세요 (만원 단위): ");
+        double amount = scanner.nextDouble();
+        scanner.nextLine();
+
+        bankService.transfer(senderName, senderPassword, receiverIdentifier, amount);
+    }
+    
 }
