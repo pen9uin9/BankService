@@ -1,0 +1,4 @@
+Type: transfer, Amount: 50000.0, Details: Transfer from 손민규 to 강승국
+Type: deposit, Amount: 5000000.0, Details: Deposit by 손민규
+Type: transfer, Amount: 10000.0, Details: Transfer from 손민규 to 강승국
+Type: transfer, Amount: 20000.0, Details: Transfer from 강승국 to 손민규
